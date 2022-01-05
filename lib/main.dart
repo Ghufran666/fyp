@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:digital_ordering_system/auth/login_screen.dart';
+import 'package:digital_ordering_system/config/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Email and Password login',
         theme: ThemeData(
-          primarySwatch: Colors.pink,
+          primaryColor: primaryColor,
+          scaffoldBackgroundColor: scaffoldBackgroundColor,
           hintColor: Colors.black,
         ),
         home: const LoginScreen(),

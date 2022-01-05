@@ -1,7 +1,7 @@
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:digital_ordering_system/controllers/login_controller.dart';
-import 'package:digital_ordering_system/screens/home_screen.dart';
-import 'package:digital_ordering_system/screens/registration_screen.dart';
+import 'package:digital_ordering_system/screens/home/home_screen.dart';
+import 'package:digital_ordering_system/auth/registration_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -18,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 // ignore: duplicate_ignore
 class _LoginScreenState extends State<LoginScreen> {
   Future<void> _googleSignUP() async {
+    // ignore: unused_element
     _googleSignUp() async {
       try {
         final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -49,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
   //editing controller
   // ignore: unnecessary_new
   final TextEditingController emailController = new TextEditingController();
-  final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   //firebase
   final _auth = FirebaseAuth.instance;
@@ -90,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
         controller: passwordController,
         obscureText: true,
         validator: (value) {
-          RegExp regex = new RegExp(r'^.{6,}$');
+          RegExp regex = RegExp(r'^.{6,}$');
           if (value!.isEmpty) {
             return ("Password is required for login! ");
           }

@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_ordering_system/model/user_model.dart';
-import 'package:digital_ordering_system/screens/home_screen.dart';
+import 'package:digital_ordering_system/screens/home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // ignore: unused_import
 import 'package:firebase_core/firebase_core.dart';
