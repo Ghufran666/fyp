@@ -1,3 +1,4 @@
+import 'package:digital_ordering_system/utils/constants.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:digital_ordering_system/controllers/login_controller.dart';
 import 'package:digital_ordering_system/screens/home/home_screen.dart';
@@ -17,32 +18,32 @@ class LoginScreen extends StatefulWidget {
 
 // ignore: duplicate_ignore
 class _LoginScreenState extends State<LoginScreen> {
-  Future<void> _googleSignUP() async {
+  _googleSignUP() async {
     // ignore: unused_element
-    _googleSignUp() async {
-      try {
-        final GoogleSignIn _googleSignIn = GoogleSignIn(
-          scopes: ['email'],
-        );
-        final FirebaseAuth _auth = FirebaseAuth.instance;
 
-        final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-        final GoogleSignInAuthentication googleAuth =
-            await googleUser!.authentication;
+    try {
+      final GoogleSignIn _googleSignIn = GoogleSignIn(
+        scopes: ['email'],
+      );
+      final FirebaseAuth _auth = FirebaseAuth.instance;
 
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
-        final User? user = (await _auth.signInWithCredential(credential)).user;
-        // print("signed in " + user.displayName);
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
 
-        return user;
+      final User? user = (await _auth.signInWithCredential(credential)).user;
+      Constants.prefs?.setBool("loggedIn", true);
+
+      // print("signed in " + user.displayName);
+
+      return user;
       // ignore: empty_catches
-      } catch (e) {
-      }
-    }
+    } catch (e) {}
   }
 
   //form key
@@ -182,13 +183,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     SizedBox(
-                      child: loginControllers(context),
-                    ),
-                    SizedBox(
                         child: SignInButton(
                       Buttons.Google,
                       text: "Sign in with google",
                       onPressed: () {
+                        
                         _googleSignUP().then(
                           (value) => Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
@@ -196,6 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         );
+                        Constants.prefs?.setBool("loggedIn", true);
                       },
                     ))
                   ],
@@ -227,73 +227,5 @@ class _LoginScreenState extends State<LoginScreen> {
         Fluttertoast.showToast(msg: e!.message);
       });
     }
-  }
-
-  //creating a function login UI
-  loginUI() {
-    //loggingUI
-    //logging controller
-    return Consumer<LoginController>(builder: (context, model, child) {
-      //if we are already logged in
-      if (model.userDetails != null) {
-        return Center(
-          child: loggedInUI(model),
-        );
-      } else {
-        return loginControllers(context);
-      }
-    });
-  }
-
-  loggedInUI(LoginController model) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-
-      //our UI will have 3 children name, email, photo, logout button..
-      children: [
-        CircleAvatar(
-          backgroundImage:
-              Image.network(model.userDetails!.photoURL ?? "").image,
-          radius: 50,
-        ),
-        Text(model.userDetails!.displayName ?? ""),
-        Text(model.userDetails!.email ?? ""),
-
-        //logout button.
-        ActionChip(
-          avatar: const Icon(Icons.logout),
-          label: const Text("Logout"),
-          onPressed: () {
-            Provider.of<LoginController>(context, listen: false).logout();
-          },
-        )
-      ],
-    );
-  }
-
-  loginControllers(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            child: Image.asset(
-              "assets/google.png",
-              width: 240,
-            ),
-            onTap: () {
-              Provider.of<LoginController>(context, listen: false)
-                  .googleLogin();
-            },
-          ),
-          const SizedBox(),
-          Image.asset(
-            "assets/fb.png",
-            width: 240,
-          ),
-        ],
-      ),
-    );
   }
 }

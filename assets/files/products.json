@@ -1,0 +1,58 @@
+{
+    "products": [
+        {
+            "id": "1",
+            "name": "Single Tikka",
+            "price": "210rs/half",
+            "imageUrl": "https://images.pexels.com/photos/3026805/pexels-photo-3026805.jpeg?cs=srgb&dl=pexels-ella-olsson-3026805.jpg&fm=jpg"
+        },
+        {
+            "id": "2",
+            "name": "Doule Tikka",
+            "price": "400rs/half",
+            "imageUrl": "https://images.pexels.com/photos/3026805/pexels-photo-3026805.jpeg?cs=srgb&dl=pexels-ella-olsson-3026805.jpg&fm=jpg"
+        },
+        {
+            "id": "3",
+            "name": "Full Tikka",
+            "price": "600rs/half",
+            "imageUrl": "https://images.pexels.com/photos/3026805/pexels-photo-3026805.jpeg?cs=srgb&dl=pexels-ella-olsson-3026805.jpg&fm=jpg"
+        },{
+            "id": "4",
+            "name": "Single Tikka",
+            "price": "210rs/half",
+            "imageUrl": "https://images.pexels.com/photos/3026805/pexels-photo-3026805.jpeg?cs=srgb&dl=pexels-ella-olsson-3026805.jpg&fm=jpg"
+        },
+        {
+            "id": "5",
+            "name": "Doule Tikka",
+            "price": "400rs/half",
+            "imageUrl": "https://images.pexels.com/photos/3026805/pexels-photo-3026805.jpeg?cs=srgb&dl=pexels-ella-olsson-3026805.jpg&fm=jpg"
+        },
+        {
+            "id": "6",
+            "name": "Full Tikka",
+            "price": "600rs/half",
+            "imageUrl": "https://images.pexels.com/photos/3026805/pexels-photo-3026805.jpeg?cs=srgb&dl=pexels-ella-olsson-3026805.jpg&fm=jpg"
+        }
+    ], "product": [
+        {
+            "id": "1",
+            "name": "Single Tikka",
+            "price": "210rs/half",
+            "imageUrl": "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?cs=srgb&dl=pexels-ella-olsson-1640777.jpg&fm=jpg"
+        },
+        {
+            "id": "2",
+            "name": "Doule Tikka",
+            "price": "400rs/half",
+            "imageUrl": "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?cs=srgb&dl=pexels-ella-olsson-1640777.jpg&fm=jpg"
+        },
+        {
+            "id": "3",
+            "name": "Full Tikka",
+            "price": "600rs/half",
+            "imageUrl": "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?cs=srgb&dl=pexels-ella-olsson-1640777.jpg&fm=jpg"
+        }
+    ]
+}

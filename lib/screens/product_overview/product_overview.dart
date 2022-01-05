@@ -1,13 +1,21 @@
+import 'package:digital_ordering_system/model/product_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProductOverview extends StatelessWidget {
-  const ProductOverview({Key? key}) : super(key: key);
+  final Item? items;
+  const ProductOverview({Key? key, this.items}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('this is a product overview page'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(items!.name!),
+      ),
+      body: SizedBox(
+        height: 400,
+        child: Image.network(items!.imageUrl!),
+      ),
     );
   }
 }

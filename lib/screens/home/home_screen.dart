@@ -1,126 +1,45 @@
+import 'dart:convert';
+
+import 'package:digital_ordering_system/auth/login_screen.dart';
+import 'package:digital_ordering_system/controllers/login_controller.dart';
+import 'package:digital_ordering_system/model/product_model.dart';
 import 'package:digital_ordering_system/screens/home/drawerside.dart';
 import 'package:digital_ordering_system/screens/product_overview/product_overview.dart';
 import 'package:digital_ordering_system/screens/home/single_product.dart';
+import 'package:digital_ordering_system/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
-  // Widget singleProducts() {
-  //   return Container(
-  //     margin: const EdgeInsets.symmetric(horizontal: 5),
-  //     height: 300,
-  //     width: 160,
-  //     decoration: BoxDecoration(
-  //       color: Colors.white,
-  //       borderRadius: BorderRadius.circular(10),
-  //     ),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Expanded(
-  //           flex: 2,
-  //           child: Image.network(
-  //             'https://thumbs.dreamstime.com/b/chicken-tandoori-leg-piece-indian-punjabi-spicy-preparation-white-background-selective-focus-foreground-160638607.jpg',
-  //           ),
-  //         ),
-  //         Expanded(
-  //             child: Padding(
-  //           padding: const EdgeInsets.symmetric(
-  //             horizontal: 10,
-  //           ),
-  //           child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             children: [
-  //               const Text(
-  //                 'Special bbq',
-  //                 style: TextStyle(
-  //                     fontSize: 20,
-  //                     color: Colors.black,
-  //                     fontWeight: FontWeight.bold),
-  //               ),
-  //               const Padding(
-  //                 padding: EdgeInsets.only(bottom: 3),
-  //                 child: Text(
-  //                   ' 210rs/half',
-  //                   style: TextStyle(fontSize: 20, color: Colors.grey),
-  //                 ),
-  //               ),
-  //               Row(
-  //                 children: [
-  //                   Expanded(
-  //                     child: Padding(
-  //                       padding: const EdgeInsets.only(left: 5),
-  //                       child: Container(
-  //                         height: 30,
-  //                         width: 50,
-  //                         decoration: BoxDecoration(
-  //                           border: Border.all(color: Colors.grey),
-  //                           borderRadius: BorderRadius.circular(8),
-  //                         ),
-  //                         child: Row(
-  //                           children: const [
-  //                             Expanded(
-  //                               child: Text(
-  //                                 ' 50 gram',
-  //                                 style: TextStyle(fontSize: 10),
-  //                               ),
-  //                             ),
-  //                             Center(
-  //                               child: Icon(
-  //                                 Icons.arrow_drop_down,
-  //                                 size: 20,
-  //                                 color: Color(0xffd0b84c),
-  //                               ),
-  //                             )
-  //                           ],
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   const SizedBox(
-  //                     width: 5,
-  //                   ),
-  //                   Expanded(
-  //                     child: Container(
-  //                       height: 30,
-  //                       width: 50,
-  //                       decoration: BoxDecoration(
-  //                         border: Border.all(color: Colors.grey),
-  //                         borderRadius: BorderRadius.circular(8),
-  //                       ),
-  //                       child: Row(
-  //                         mainAxisAlignment: MainAxisAlignment.center,
-  //                         children: const [
-  //                           Icon(
-  //                             Icons.remove,
-  //                             size: 15,
-  //                             color: Color(0xffd0b84c),
-  //                           ),
-  //                           Text(
-  //                             '1',
-  //                             style: TextStyle(
-  //                                 fontWeight: FontWeight.bold,
-  //                                 color: Color(0xffd0b84c)),
-  //                           ),
-  //                           Icon(
-  //                             Icons.add,
-  //                             size: 15,
-  //                             color: Color(0xffd0b84c),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               )
-  //             ],
-  //           ),
-  //         ))
-  //       ],
-  //     ),
-  //   );
-  // }
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    loadDataFromJson();
+  }
+
+  loadDataFromJson() async {
+    //root bundle return the future so we need to wait
+    final jsonData = await rootBundle.loadString("assets/files/products.json");
+    final decodeData = jsonDecode(jsonData);
+    var productData = decodeData["products"];
+    var fastFoodData = decodeData["product"];
+    Product.items = List.from(fastFoodData)
+        .map<Item>((item) => Item.fromMap(item))
+        .toList();
+
+    Products.items =
+        List.from(productData).map<Item>((item) => Item.fromMap(item)).toList();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,209 +66,185 @@ class HomeScreen extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: CircleAvatar(
-              radius: 12,
-              backgroundColor: Color(0xffd4d181),
-              child: Icon(
-                Icons.shop,
-                size: 17,
-                color: Colors.black,
-              ),
-            ),
-          )
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: CircleAvatar(
+                radius: 12,
+                backgroundColor: const Color(0xffd4d181),
+                child: IconButton(
+                  icon: const Icon(Icons.logout_outlined),
+                  onPressed: () {
+                    Constants.prefs?.setBool("loggedIn", false);
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
+                  },
+                ),
+              ))
         ],
         backgroundColor: const Color(0xffd6b738),
       ),
       //after appbar side of app
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        child: ListView(
-          children: [
-            Container(
-              height: 210,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: const DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                          'https://images.pexels.com/photos/3026805/pexels-photo-3026805.jpeg?cs=srgb&dl=pexels-ella-olsson-3026805.jpg&fm=jpg'))),
-              child: Row(
-                children: [
-                  Expanded(
-                    // flex: 2,
-                    // ignore: avoid_unnecessary_containers
-                    // inner area of after appBar
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(right: 140, bottom: 10),
-                          child: Container(
-                            height: 40,
-                            width: 100,
-                            decoration: const BoxDecoration(
-                              color: Color(0xffd1ad17),
-                              borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(30),
-                                bottomLeft: Radius.circular(0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 210,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: const DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            'https://images.pexels.com/photos/3026805/pexels-photo-3026805.jpeg?cs=srgb&dl=pexels-ella-olsson-3026805.jpg&fm=jpg'))),
+                child: Row(
+                  children: [
+                    Expanded(
+                      // flex: 2,
+                      // ignore: avoid_unnecessary_containers
+                      // inner area of after appBar
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(right: 140, bottom: 10),
+                            child: Container(
+                              height: 40,
+                              width: 100,
+                              decoration: const BoxDecoration(
+                                color: Color(0xffd1ad17),
+                                borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(30),
+                                  bottomLeft: Radius.circular(0),
+                                ),
                               ),
-                            ),
-                            child: const Text(
-                              'Offers',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                shadows: [
-                                  BoxShadow(
-                                      color: Colors.green,
-                                      blurRadius: 3,
-                                      offset: Offset(3, 3))
-                                ],
+                              child: const Text(
+                                'Offers',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  shadows: [
+                                    BoxShadow(
+                                        color: Colors.green,
+                                        blurRadius: 3,
+                                        offset: Offset(3, 3))
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const Text(
-                          '40% OFF',
-                          style: TextStyle(
-                              fontSize: 40,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 20),
-                          child: Text(
-                            'On your nearby Restaurants',
+                          const Text(
+                            '40% OFF',
                             style: TextStyle(
+                                fontSize: 40,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),
-                        )
-                      ],
+                          const Padding(
+                            padding: EdgeInsets.only(left: 20),
+                            child: Text(
+                              'On your nearby Restaurants',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(),
-                  ),
-                ],
+                    Expanded(
+                      child: Container(),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    'Popular',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  Text(
-                    'View all',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      'Popular',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    Text(
+                      'View all',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
               ),
-            ),
-//slide1 of the homepage
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  _buildHerbsProduct(context),
-                  // singleProducts(),
-                  // singleProducts(),
-                  // singleProducts(),
-                  // singleProducts(),
-                  // singleProducts(),
-                  // singleProducts(),
-                  // singleProducts(),
-                ],
+
+              //slide1 of the homepage
+
+              SizedBox(
+                height: 280.0,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: Products.items?.length,
+                  itemBuilder: (context, index) {
+                    return SingleProduct(
+                      productName: Products.items![index].name,
+                      productUrl: Products.items![index].imageUrl,
+                      price: Products.items![index].price,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProductOverview(
+                                      items: Products.items![index],
+                                    )));
+                      },
+                    );
+                  },
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    'Fast Food',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  Text(
-                    'View all',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ],
+
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      'Fast Food',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    Text(
+                      'View all',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  // singleProducts(),
-                  // singleProducts(),
-                  // singleProducts(),
-                  // singleProducts(),
-                  // singleProducts(),
-                  // singleProducts(),
-                  // singleProducts(),
-                ],
+              SizedBox(
+                height: 280.0,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: Product.items?.length,
+                  itemBuilder: (context, index) {
+                    return SingleProduct(
+                      productName: Product.items![index].name,
+                      productUrl: Product.items![index].imageUrl,
+                      price: Product.items![index].price,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProductOverview(
+                                    items: Product.items![index])));
+                      },
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
-Widget _buildHerbsProduct(context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text('Fast Food'),
-              Text(
-                'view all',
-                style: TextStyle(color: Colors.grey),
-              ),
-            ],
-          ),
-        ),
-         SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              SingleProduct(
-                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      // ignore: prefer_const_constructors
-                      builder: (context) => ProductOverview()));
-                },
-                productImage:
-                    'https://images.pexels.com/photos/3026805/pexels-photo-3026805.jpeg?cs=srgb&dl=pexels-ella-olsson-3026805.jpg&fm=jpg',
-                productName: "Afghai tikka",
-              ),
-              SingleProduct(
-                onTap: () {
-                }, 
-                productImage:
-                    'https://images.pexels.com/photos/3026805/pexels-photo-3026805.jpeg?cs=srgb&dl=pexels-ella-olsson-3026805.jpg&fm=jpg',
-                productName: "Afghai tikka",),
-              SingleProduct(
-                onTap: () {
-                }, 
-                productImage:
-                    'https://images.pexels.com/photos/3026805/pexels-photo-3026805.jpeg?cs=srgb&dl=pexels-ella-olsson-3026805.jpg&fm=jpg',
-                productName: "Afghai tikka",)
-            ], 
-          ),
-        ),
-      ],
-    );
-  }
