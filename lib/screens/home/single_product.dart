@@ -7,7 +7,8 @@ class SingleProduct extends StatelessWidget {
   final Function onTap;
   //final Function onTap;
 
-  SingleProduct({
+  // ignore: use_key_in_widget_constructors
+  const SingleProduct({
     required this.onTap,
     required this.productImage,
     required this.productName,
@@ -30,7 +31,7 @@ class SingleProduct extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   GestureDetector(
-                      onTap: onTap(context),
+                      onTap: onTap(),
                       child: Container(
                           height: 150,
                           padding: const EdgeInsets.all(5),
