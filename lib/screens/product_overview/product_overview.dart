@@ -16,7 +16,7 @@ class ProductOverview extends StatefulWidget {
 
 class _ProductOverviewState extends State<ProductOverview> {
   // get items => null;
-  SigninCharacter _character = SigninCharacter.fill;
+  final SigninCharacter _character = SigninCharacter.fill;
 
   Widget bottomNavigatorBar({
     Color? iconColor,
@@ -58,13 +58,16 @@ class _ProductOverviewState extends State<ProductOverview> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: textColor),
         backgroundColor: const Color(0xffd1ad17),
-        title: Text(widget.items!.name!),
+        title: Text(
+          widget.items!.name!,
+          style: const TextStyle(color: Colors.black),
+        ),
       ),
-      body: Column(
+      body: ListView(
         children: [
           Expanded(
             flex: 2,
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               child: Column(
                 children: [
@@ -73,10 +76,10 @@ class _ProductOverviewState extends State<ProductOverview> {
                     subtitle: Text(widget.items!.price!),
                   ),
                   Container(
-                      height: 250,
-                      padding: const EdgeInsets.all(40),
-                      child: Image.network(widget.items!.image!)
-                      ),
+                    height: 250,
+                    padding: const EdgeInsets.only(bottom: 15),
+                    child: Image.network(widget.items!.imageUrl!)
+                  ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     width: double.infinity,
@@ -94,6 +97,7 @@ class _ProductOverviewState extends State<ProductOverview> {
                       horizontal: 10,
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
@@ -108,7 +112,7 @@ class _ProductOverviewState extends State<ProductOverview> {
                               onChanged: (value) {
                                 setState(() {});
                               },
-                            )
+                            ),
                           ],
                         ),
                         Text(widget.items!.price!),
@@ -124,7 +128,6 @@ class _ProductOverviewState extends State<ProductOverview> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               Icon(
                                 Icons.add,
@@ -162,7 +165,7 @@ class _ProductOverviewState extends State<ProductOverview> {
                   SizedBox(
                     height: 10,
                   ),
-                   Text(
+                  Text(
                     "Flavorsome indicates good tasting, full of flavor, specifically pleasant flavor; implying delicious, tasty, appetizing, scrumptious, yummy, juicy, succulent, heavenly, inviting, luscious, mouthwatering",
                     style: TextStyle(
                       fontSize: 16,
@@ -180,15 +183,15 @@ class _ProductOverviewState extends State<ProductOverview> {
       bottomNavigationBar: Row(
         children: [
           bottomNavigatorBar(
-              backgroundColor: textColor,
-              color: Colors.white70,
-              iconColor: Colors.grey,
+              backgroundColor: primaryColor,
+              iconColor: Colors.white70,
+              color: scaffoldBackgroundColor,
               title: "Add to Wishlist",
               iconData: Icons.favorite_outline_outlined),
           bottomNavigatorBar(
-              backgroundColor: primaryColor,
-              color: textColor,
-              iconColor: Colors.white70,
+              backgroundColor: Colors.white,
+              color: Colors.white,
+              iconColor: Colors.black,
               title: "Go to Cart",
               iconData: Icons.shop_outlined),
         ],

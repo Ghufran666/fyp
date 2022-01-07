@@ -1,17 +1,22 @@
+import 'package:digital_ordering_system/config/colors.dart';
+import 'package:digital_ordering_system/screens/my%20profile/my_profile.dart';
 import 'package:flutter/material.dart';
 
-class Drawerside extends StatelessWidget {
-  const Drawerside({Key? key}) : super(key: key);
+class DrawerSide extends StatelessWidget {
+  const DrawerSide({Key? key, this.onTap}) : super(key: key);
+  final void Function()? onTap;
 
-  Widget listTile({IconData? icon, required String title}) {
+  Widget listTile({IconData? icon, required String title,Function()? onTap, Color? color}) {
     return ListTile(
+      onTap: onTap,
       leading: Icon(
         icon,
         size: 32,
+        color:Colors.grey.shade400,
       ),
       title: Text(
         title,
-        style: const TextStyle(color: Colors.black45),
+        style: const TextStyle(color: Colors.black),
       ),
     );
   }
@@ -20,7 +25,7 @@ class Drawerside extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: const Color(0xffd1ad17),
+        color: primaryColor,
         child: ListView(
           children: [
             DrawerHeader(
@@ -65,7 +70,14 @@ class Drawerside extends StatelessWidget {
             ),
             listTile(icon: Icons.home_outlined, title: "Home"),
             listTile(icon: Icons.shop_outlined, title: "Review Cart"),
-            listTile(icon: Icons.person_outlined, title: "My Profile"),
+            listTile(icon: Icons.person_outlined, title: "My Profile",
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const MYProfile()));
+
+            }
+            ),
+
+            
             listTile(icon: Icons.notifications_outlined, title: "Notification"),
             listTile(icon: Icons.star_outlined, title: "Rating & Reviews"),
             listTile(icon: Icons.favorite_outlined, title: "Wishlists"),

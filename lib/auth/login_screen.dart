@@ -188,8 +188,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: SignInButton(
                         Buttons.Google,
                         text: "Sign in with google",
-                        onPressed: () {
-                          _googleSignUP().then(
+                        onPressed: () async {
+                         await _googleSignUP().then(
                             (value) => Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder: (context) => const HomeScreen(),

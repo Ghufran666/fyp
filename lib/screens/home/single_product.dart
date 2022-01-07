@@ -36,7 +36,7 @@ class _SingleProductState extends State<SingleProduct> {
               onTap: widget.onTap,
               child: Image.network(
                 widget.productUrl!,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
           ),

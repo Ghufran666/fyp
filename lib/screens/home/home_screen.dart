@@ -6,6 +6,7 @@ import 'package:digital_ordering_system/model/product_model.dart';
 import 'package:digital_ordering_system/screens/home/drawerside.dart';
 import 'package:digital_ordering_system/screens/product_overview/product_overview.dart';
 import 'package:digital_ordering_system/screens/home/single_product.dart';
+import 'package:digital_ordering_system/screens/search/search.dart';
 import 'package:digital_ordering_system/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       //Drawer Initialization
-      drawer: const Drawerside(),
+      drawer: const DrawerSide(),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black),
         title: const Text(
@@ -57,22 +58,32 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         // ignore: prefer_const_literals_to_create_immutables
         actions: [
-          const CircleAvatar(
-            radius: 12,
-            backgroundColor: Color(0xffd4d181),
-            child: Icon(
-              Icons.search,
-              size: 17,
-              color: Colors.black,
+          CircleAvatar(
+            radius: 14,
+            backgroundColor: const Color(0xffd4d181),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const Search()));
+              },
+              icon: const Icon(
+                Icons.search,
+                size: 20,
+                color: Colors.black,
+              ),
             ),
           ),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: CircleAvatar(
-                radius: 12,
+                radius: 14,
                 backgroundColor: const Color(0xffd4d181),
                 child: IconButton(
-                  icon: const Icon(Icons.logout_outlined),
+                  icon: const Icon(
+                    Icons.logout_outlined,
+                    size: 20,
+                    color: Colors.black,
+                  ),
                   onPressed: () {
                     Constants.prefs?.setBool("loggedIn", false);
                     Navigator.pushReplacement(
