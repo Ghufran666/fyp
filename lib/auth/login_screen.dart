@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final loginButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.redAccent,
+      color: const Color(0xffd1ad17),
       child: MaterialButton(
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
@@ -149,8 +149,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                         height: 200,
                         child: Image.asset(
-                          "assets/logo1.png",
-                          fit: BoxFit.contain,
+                          "assets/logo3.jpg",
+                          fit: BoxFit.fill,
                         )),
                     const SizedBox(height: 45),
                     emailField,
@@ -175,29 +175,31 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text(
                             " SignUp",
                             style: const TextStyle(
-                                color: Colors.redAccent,
+                                color: Color(0xffd1ad17),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15),
                           ),
                         )
                       ],
                     ),
-                    SizedBox(
-                        child: SignInButton(
-                      Buttons.Google,
-                      text: "Sign in with google",
-                      onPressed: () {
-                        
-                        _googleSignUP().then(
-                          (value) => Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const HomeScreen(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: SizedBox(
+                          child: SignInButton(
+                        Buttons.Google,
+                        text: "Sign in with google",
+                        onPressed: () {
+                          _googleSignUP().then(
+                            (value) => Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const HomeScreen(),
+                              ),
                             ),
-                          ),
-                        );
-                        Constants.prefs?.setBool("loggedIn", true);
-                      },
-                    ))
+                          );
+                          Constants.prefs?.setBool("loggedIn", true);
+                        },
+                      )),
+                    )
                   ],
                 ),
               ),
@@ -207,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       appBar: AppBar(
         title: const Text("Digital Ordering System"),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: const Color(0xffd1ad17),
         centerTitle: true,
       ),
     );

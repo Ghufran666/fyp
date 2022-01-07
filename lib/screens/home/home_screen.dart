@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffcbcbcb),
+      backgroundColor: Colors.grey.shade300,
       //Drawer Initialization
       drawer: const Drawerside(),
       appBar: AppBar(
@@ -166,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text(
-                      'Popular',
+                      'Bar.BQ',
                       style: TextStyle(color: Colors.black),
                     ),
                     Text(
