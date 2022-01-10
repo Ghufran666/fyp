@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      backgroundColor: Colors.white,
       //Drawer Initialization
       drawer: const DrawerSide(),
       appBar: AppBar(
@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: IconButton(
               onPressed: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const Search()));
+                    MaterialPageRoute(builder: (context) =>  Search()));
               },
               icon: const Icon(
                 Icons.search,
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 1),
               child: CircleAvatar(
                 radius: 14,
                 backgroundColor: const Color(0xffd4d181),

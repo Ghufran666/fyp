@@ -1,6 +1,7 @@
 // ignore_for_file: dead_code, non_constant_identifier_names, unrelated_type_equality_checks
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_ordering_system/config/colors.dart';
 import 'package:digital_ordering_system/model/user_model.dart';
 import 'package:digital_ordering_system/screens/home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -152,7 +153,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.vpn_key),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Email",
+          hintText: "Enter Password Again",
           errorBorder: const OutlineInputBorder(),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
@@ -162,7 +163,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final signUpButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.pinkAccent,
+      color: primaryColor,
       child: MaterialButton(
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
@@ -181,7 +182,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.pinkAccent,
+        backgroundColor: primaryColor,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -206,7 +207,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     SizedBox(
                         height: 180,
                         child: Image.asset(
-                          "assets/logo1.png",
+                          "assets/logo3.jpg",
                           fit: BoxFit.contain,
                         )),
                     const SizedBox(height: 45),

@@ -1,8 +1,12 @@
 import 'package:digital_ordering_system/config/colors.dart';
+import 'package:digital_ordering_system/screens/widgets/single_item.dart';
 import 'package:flutter/material.dart';
 
 class Search extends StatelessWidget {
-  const Search({Key? key}) : super(key: key);
+  var isBool;
+
+
+   Search({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class Search extends StatelessWidget {
           ),
           Container(
             height: 52,
-            margin: EdgeInsets.symmetric(horizontal: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
               decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -37,9 +41,24 @@ class Search extends StatelessWidget {
                   suffixIcon: const Icon(Icons.search)),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
-          )
+          ),
+          const SingleItem(
+              isBool: true,
+            ),
+          const SingleItem(
+              isBool: true,
+            ),
+          const SingleItem(
+              isBool: true,
+            ),
+          const SingleItem(
+              isBool: true,
+            ),
+          const SingleItem(
+              isBool: true,
+            ),
         ],
       ),
     );

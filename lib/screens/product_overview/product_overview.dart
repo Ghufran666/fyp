@@ -76,10 +76,9 @@ class _ProductOverviewState extends State<ProductOverview> {
                     subtitle: Text(widget.items!.price!),
                   ),
                   Container(
-                    height: 250,
-                    padding: const EdgeInsets.only(bottom: 15),
-                    child: Image.network(widget.items!.imageUrl!)
-                  ),
+                      height: 250,
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: Image.network(widget.items!.imageUrl!)),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     width: double.infinity,
@@ -154,20 +153,20 @@ class _ProductOverviewState extends State<ProductOverview> {
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     "About this product",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "Flavorsome indicates good tasting, full of flavor, specifically pleasant flavor; implying delicious, tasty, appetizing, scrumptious, yummy, juicy, succulent, heavenly, inviting, luscious, mouthwatering",
-                    style: TextStyle(
+                    widget.items!.description!,
+                    style: const TextStyle(
                       fontSize: 16,
                       color: Colors.black87,
                     ),

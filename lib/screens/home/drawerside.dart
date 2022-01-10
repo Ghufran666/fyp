@@ -1,18 +1,24 @@
 import 'package:digital_ordering_system/config/colors.dart';
+import 'package:digital_ordering_system/screens/home/home_screen.dart';
 import 'package:digital_ordering_system/screens/my%20profile/my_profile.dart';
+import 'package:digital_ordering_system/screens/review_cart/review_cart.dart';
 import 'package:flutter/material.dart';
 
 class DrawerSide extends StatelessWidget {
   const DrawerSide({Key? key, this.onTap}) : super(key: key);
   final void Function()? onTap;
 
-  Widget listTile({IconData? icon, required String title,Function()? onTap, Color? color}) {
+  Widget listTile(
+      {IconData? icon,
+      required String title,
+      Function()? onTap,
+      Color? color}) {
     return ListTile(
       onTap: onTap,
       leading: Icon(
         icon,
         size: 32,
-        color:Colors.grey.shade400,
+        color: Colors.grey.shade400,
       ),
       title: Text(
         title,
@@ -68,16 +74,27 @@ class DrawerSide extends StatelessWidget {
                 ],
               ),
             ),
-            listTile(icon: Icons.home_outlined, title: "Home"),
-            listTile(icon: Icons.shop_outlined, title: "Review Cart"),
-            listTile(icon: Icons.person_outlined, title: "My Profile",
-            onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const MYProfile()));
-
-            }
-            ),
-
-            
+            listTile(
+                icon: Icons.home_outlined,
+                title: "Home",
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const HomeScreen()));
+                }),
+            listTile(
+                icon: Icons.shop_outlined,
+                title: "Review Cart",
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ReviewCart()));
+                }),
+            listTile(
+                icon: Icons.person_outlined,
+                title: "My Profile",
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const MYProfile()));
+                }),
             listTile(icon: Icons.notifications_outlined, title: "Notification"),
             listTile(icon: Icons.star_outlined, title: "Rating & Reviews"),
             listTile(icon: Icons.favorite_outlined, title: "Wishlists"),
@@ -99,7 +116,7 @@ class DrawerSide extends StatelessWidget {
                         Text("Call Us: "),
                         SizedBox(
                           width: 10,
-                        ),
+                        ), 
                         Text("0308-2469624"),
                       ],
                     ),

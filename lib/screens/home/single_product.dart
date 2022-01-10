@@ -20,12 +20,26 @@ class _SingleProductState extends State<SingleProduct> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      height: 300,
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical:10 ),
+      height: 40,
       width: 160,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+       borderRadius: const BorderRadius.only(
+      topLeft: Radius.circular(10),
+        topRight: Radius.circular(10),
+        bottomLeft: Radius.circular(10),
+        bottomRight: Radius.circular(10)
+    ),
+        boxShadow: [
+      BoxShadow(
+        color: Colors.grey.withOpacity(0.5),
+        spreadRadius: 4,
+        blurRadius: 5,
+        offset: Offset(0, 2), // changes position of shadow
+      ),
+    ],
+        
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +57,7 @@ class _SingleProductState extends State<SingleProduct> {
           Expanded(
               child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 10,
+              horizontal: 10, vertical: 0.1,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,15 +65,15 @@ class _SingleProductState extends State<SingleProduct> {
                 Text(
                   widget.productName!,
                   style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.bold),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 3),
+                  padding: const EdgeInsets.only(bottom: 2),
                   child: Text(
                     widget.price!,
-                    style: const TextStyle(fontSize: 20, color: Colors.grey),
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ),
                 Row(

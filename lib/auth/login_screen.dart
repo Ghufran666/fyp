@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Container(
             color: Colors.white,
             child: Padding(
-              padding: const EdgeInsets.all(36.0),
+              padding: const EdgeInsets.all(35.0),
               child: Form(
                 key: _formKey,
                 child: Column(

@@ -8,13 +8,13 @@ class MYProfile extends StatelessWidget {
  Widget listTile({IconData? icon, String? title}) {
     return Column(
       children: [
-        Divider(
+        const Divider(
           height: 1,
         ),
         ListTile(
           leading: Icon(icon),
           title: Text(title!),
-          trailing: Icon(Icons.arrow_forward_ios),
+          trailing: const Icon(Icons.arrow_forward_ios),
         )
       ],
     );
